@@ -44,7 +44,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar */}
       <div className={`
         fixed md:relative inset-y-0 left-0 top-[89px] md:top-0 z-50 md:z-auto
-        w-full md:w-[300px] bg-gray-50/90 border-r border-gray-200 overflow-y-auto pt-4
+        w-full md:w-[300px] bg-gray-50/90 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 overflow-y-auto pt-4
         transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>

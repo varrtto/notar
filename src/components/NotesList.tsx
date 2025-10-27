@@ -1,3 +1,4 @@
+import { useNotesSync } from '../stores/useNotesSync'
 import { NoteListItem } from './NoteListItem'
 
 interface Note {
@@ -21,6 +22,7 @@ export function NotesList({
   onDeleteNote, 
   getPreviewText 
 }: NotesListProps) {
+  const { addNote, isLoading } = useNotesSync()
   if (notes.length === 0) {
     return (
       <div className="p-4 text-center text-gray-500">
@@ -30,7 +32,7 @@ export function NotesList({
           </svg>
         </div>
         <p className="text-sm">No notes yet</p>
-        <p className="text-xs text-gray-400 mt-1">Create your first note to get started</p>
+        <button disabled={isLoading} onClick={addNote} className="text-xs text-gray-400 mt-1 hover:underline">Create your first note to get started</button>
       </div>
     )
   }

@@ -16,23 +16,12 @@ interface NoteEditorProps {
   content: string
 }
 
-// Plugin to restore editor state from saved content and handle focus
 function RestoreEditorStatePlugin({ content }: { content: string }) {
   const [editor] = useLexicalComposerContext()
   const lastContentRef = useRef<string>('')
   const isInternalUpdateRef = useRef<boolean>(false)
-  const hasFocusedRef = useRef<boolean>(false)
 
   useEffect(() => {
-    // Focus on first mount (for new notes)
-    if (!hasFocusedRef.current) {
-      setTimeout(() => {
-        editor.focus()
-        hasFocusedRef.current = true
-      }, 100)
-    }
-
-    // Only restore if content has actually changed (not from our own updates)
     if (content && content !== lastContentRef.current && !isInternalUpdateRef.current) {
       try {
         const parsedContent = JSON.parse(content)
@@ -74,7 +63,7 @@ export function NoteEditor({ onChange, content }: NoteEditorProps) {
         italic: 'italic',
         underline: 'underline',
         strikethrough: 'line-through',
-        code: 'font-mono bg-gray-100 px-1.5 py-0.5 rounded text-sm text-gray-800',
+        code: 'font-mono bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm text-gray-800 dark:text-white',
       },
       paragraph: 'mb-4 last:mb-0',
       heading: {
@@ -144,7 +133,7 @@ export function NoteEditor({ onChange, content }: NoteEditorProps) {
           ErrorBoundary={LexicalErrorBoundary}
           contentEditable={
             <ContentEditable 
-              className="min-h-[500px] p-6 text-gray-800 text-base leading-relaxed outline-none resize-none focus:outline-none prose prose-lg max-w-none" 
+              className="min-h-[500px] p-6 text-gray-800 dark:text-white text-base leading-relaxed outline-none resize-none prose prose-lg max-w-none" 
               tabIndex={2}
               style={{
                 fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
